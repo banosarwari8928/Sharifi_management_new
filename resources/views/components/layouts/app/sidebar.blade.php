@@ -10,16 +10,19 @@
             <a href="{{ route('dashboard') }}" class="mr-5 flex items-center space-x-2" wire:navigate>
                 <x-app-logo class="size-8" href="#"></x-app-logo>
             </a>
-
-            <flux:navlist variant="outline">
+            <flux:navlist variant="outline" class="justify-center flex flex-col">
+                  <flux:navlist variant="outline">
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>Dashboard</flux:navlist.item>
                 </flux:navlist.group>
+                <flux:navlist.group heading="Management" class="grid">
+                    <flux:navlist.item icon="user" :href="route('admin.index')" :current="request()->routeIs('admin.index')" wire:navigate>Admin</flux:navlist.item>
+                    <flux:navlist.item icon="users" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>Manage Users</flux:navlist.item>
+                    <flux:navlist.item icon="user" :href="route('teachers.index')" :current="request()->routeIs('teachers.index')" wire:navigate>Manage Teachers</flux:navlist.item>
+                    <flux:navlist.item icon="user" :href="route('students.index')" :current="request()->routeIs('students.index')" wire:navigate>Manage Students</flux:navlist.item>
+                    <flux:navlist.item icon="home" :href="route('classes.index')" :current="request()->routeIs('classes.index')" wire:navigate>Manage Classes</flux:navlist.item>
+                </flux:navlist.group>
             </flux:navlist>
-
-            <flux:spacer />
-
-            <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                     Repository
                 </flux:navlist.item>
@@ -28,6 +31,8 @@
                     Documentation
                 </flux:navlist.item>
             </flux:navlist>
+
+            <flux:spacer />
 
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">

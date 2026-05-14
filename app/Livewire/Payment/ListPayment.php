@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Payment;
 
+use App\Models\payment;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -13,7 +14,6 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
-use payment;
 
 class ListPayment extends Component implements HasActions, HasSchemas, HasTable
 {

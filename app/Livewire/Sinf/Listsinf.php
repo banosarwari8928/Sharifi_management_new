@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Sinf;
 
+use App\Models\sinf;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -13,7 +14,6 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
-use sinf;
 
 class Listsinf extends Component implements HasActions, HasSchemas, HasTable
 {

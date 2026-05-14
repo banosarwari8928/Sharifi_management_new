@@ -8,6 +8,7 @@ use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
@@ -27,6 +28,8 @@ class ListAdmins extends Component implements HasActions, HasSchemas, HasTable
             ->query(fn (): Builder => Admin::query())
             ->columns([
                 //
+                 TextColumn::make('last_name'),
+                TextColumn::make('bio')
             ])
             ->filters([
                 //
