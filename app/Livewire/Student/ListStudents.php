@@ -27,11 +27,11 @@ class ListStudents extends Component implements HasActions, HasSchemas, HasTable
         return $table
             ->query(fn (): Builder => Student::query())
             ->columns([
-                TextColumn::make('user.name')->searchable()->sortable()->lable("Name"),
-                TextColumn::make('user.email')->lable("Email")->searchable(),
-                TextColumn::make('lastName'),
+                TextColumn::make('user.name')->sortable()->label("Name"),
+                TextColumn::make('user.email')->label("Email")->searchable(),
+                TextColumn::make('last_name'),
                 TextColumn::make("phone_number"),
-                TextColumn::make("tazkir_no"),
+                TextColumn::make("tazkira_no"),
             ])
             ->filters([
                 //

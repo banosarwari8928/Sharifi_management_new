@@ -15,7 +15,7 @@ class Teacher extends Model
         "user_id"
     ];
     public function user(){
-        return $this->belongsTo(User::class , 'user_id');
+        return $this->belongsTo(User::class,'user_id');
     }
     public function salairy(){
         return $this->hasMany(salarie::class , 'teacher_id');

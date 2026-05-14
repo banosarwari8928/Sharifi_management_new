@@ -31,10 +31,10 @@ class ListTeachers extends Component implements HasActions, HasSchemas, HasTable
             ->columns([
                 TextColumn::make('user.name')->label('name')->searchable()->sortable(),
                 TextColumn::make('user.email')->label('Email')->icon(Heroicon::Envelope)->iconColor('primary'),
-                TextColumn::make('lastName'),
-                TextColumn::make('degree_of_ducation')->color('primary'),
+                TextColumn::make('last_name'),
+                TextColumn::make('degree_of_education')->color('primary'),
                 TextColumn::make('phone_number'),
-                TextColumn::make('bio')->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('bio')->limit(20),
                 // ->isToggledHiddenByDefault()
             ])
             ->filters([
@@ -52,7 +52,7 @@ class ListTeachers extends Component implements HasActions, HasSchemas, HasTable
             return "{$successCount} of {$totalCount} users deleted";
         }
 
-        return 'Failed to delete any users';
+        return 'Failed to delete teacher';
     })
             ])
             ->toolbarActions([
