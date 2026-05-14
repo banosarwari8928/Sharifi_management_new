@@ -16,7 +16,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-
 class ListStudents extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
@@ -28,10 +27,11 @@ class ListStudents extends Component implements HasActions, HasSchemas, HasTable
         return $table
             ->query(fn (): Builder => Student::query())
             ->columns([
-                //
-                  TextColumn::make('last_name'),
-                TextColumn::make('phone_number'),
-                TextColumn::make('tazkira_no')
+                TextColumn::make('user.name')->searchable()->sortable()->lable("Name"),
+                TextColumn::make('user.email')->lable("Email")->searchable(),
+                TextColumn::make('lastName'),
+                TextColumn::make("phone_number"),
+                TextColumn::make("tazkir_no"),
             ])
             ->filters([
                 //

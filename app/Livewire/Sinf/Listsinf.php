@@ -27,6 +27,7 @@ class Listsinf extends Component implements HasActions, HasSchemas, HasTable
             ->query(fn (): Builder => sinf::query())
             ->columns([
                 //
+                
             ])
             ->filters([
                 //
