@@ -23,7 +23,7 @@
                     <flux:navlist.item icon="building-library" :href="route('classes.index')" :current="request()->routeIs('classes.index')" wire:navigate>Manage Classes</flux:navlist.item>
                 </flux:navlist.group>
                 <flux:navlist.group heading="Finance" class="grid">
-                    <flux:navlist.item icon="banknotes" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>student payments</flux:navlist.item>
+                    <flux:navlist.item icon="banknotes" :href="route('payment.index')" :current="request()->routeIs('payment.index')" wire:navigate>Student payments</flux:navlist.item>
                     <flux:navlist.item icon="scale  " :href="route('teachers.index')" :current="request()->routeIs('teachers.index')" wire:navigate>Teacher Salary</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>

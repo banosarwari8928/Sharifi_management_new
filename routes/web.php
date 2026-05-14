@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Admin\ListAdmins;
+use App\Livewire\Payment\ListPayment;
 use App\Livewire\Sinf\Listsinf;
 use App\Livewire\Student\ListStudents;
 use App\Livewire\Teacher\ListTeachers;
@@ -30,6 +31,7 @@ Route::middleware(['auth'])->group(function (){
     Route::get('/manage-students',ListStudents::class)->name('students.index');
     Route::get('/admin',ListAdmins::class)->name('admin.index');
     Route::get('/manage-classes',Listsinf::class)->name('classes.index');
+    Route::get('/finance-payment',ListPayment::class)->name('payment.index');
 });
 
 require __DIR__.'/auth.php';
