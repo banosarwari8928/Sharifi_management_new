@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use Admin;
+use App\Models\Admin;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
