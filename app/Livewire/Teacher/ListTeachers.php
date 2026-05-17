@@ -32,7 +32,7 @@ class ListTeachers extends Component implements HasActions, HasSchemas, HasTable
                 TextColumn::make('user.name')->label('name')->searchable()->sortable(),
                 TextColumn::make('user.email')->label('Email')->icon(Heroicon::Envelope)->iconColor('primary'),
                 TextColumn::make('last_name'),
-                TextColumn::make('sinf.title')->limitList(3)->badge(),
+                TextColumn::make('sinf.title')->limitList(3)->badge()->separator(","),
                 TextColumn::make('degree_of_education')->color('primary'),
                 TextColumn::make('phone_number'),
                 TextColumn::make('bio')->limit(20),

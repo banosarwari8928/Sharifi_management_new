@@ -20,4 +20,7 @@ class sinf extends Model
     public function payment(){
         return $this->hasMany(payment::class , 'sinf_id');
     }
+    public function student() {
+        return $this->belongsToMany(Student::class,"student_id");
+    }
 }
