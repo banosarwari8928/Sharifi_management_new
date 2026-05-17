@@ -21,6 +21,6 @@ class Teacher extends Model
         return $this->hasMany(salarie::class , 'teacher_id');
     }
     public function sinf(){
-        return $this->hasMany(sinf::class , 'teacher_di');
+        return $this->hasMany(sinf::class , 'teacher_id');
     }
 }
