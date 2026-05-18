@@ -32,6 +32,7 @@ class Listsinf extends Component implements HasActions, HasSchemas, HasTable
                 TextColumn::make("teacher.user.name")->label("Teacher"),
                 TextColumn::make("start_date"),
                 TextColumn::make("end_date"),
+                TextColumn::make("payment.student.user.name")->label("Students"),
                 TextColumn::make("description"),
             ])
             ->filters([

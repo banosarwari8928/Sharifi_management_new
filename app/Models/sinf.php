@@ -15,7 +15,7 @@ class sinf extends Model
         "teacher_id"
     ];
     public function teacher(){
-        return $this->belongsTo(sinf::class , 'teacher_id');
+        return $this->belongsTo(Teacher::class , 'teacher_id');
     }
     public function payment(){
         return $this->hasMany(payment::class , 'sinf_id');
