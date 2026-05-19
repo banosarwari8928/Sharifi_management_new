@@ -6,11 +6,13 @@ use App\Models\sinf;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
@@ -37,9 +39,13 @@ class Listsinf extends Component implements HasActions, HasSchemas, HasTable
             ])
             ->filters([
                 //
+                Filter::make("start_date")->schema([
+                    DatePicker::make("start_date"),
+                ]),
             ])
             ->headerActions([
                 //
+
             ])
             ->recordActions([
                 //
