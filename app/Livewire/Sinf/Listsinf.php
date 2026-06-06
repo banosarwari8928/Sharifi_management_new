@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Livewire\Sinf;
-
+namespace App\Livewire\Grades;
 use App\Models\sinf;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -18,7 +19,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class Listsinf extends Component implements HasActions, HasSchemas, HasTable
+class ListGrades extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
     use InteractsWithTable;
@@ -30,25 +31,30 @@ class Listsinf extends Component implements HasActions, HasSchemas, HasTable
             ->query(fn (): Builder => sinf::query())
             ->columns([
                 //
-                TextColumn::make("title")->label("Course_Name")->searchable(),
-                TextColumn::make("teacher.user.name")->label("Teacher"),
-                TextColumn::make("start_date"),
-                TextColumn::make("end_date"),
-                TextColumn::make("payment.student.user.name")->label("Students"),
-                TextColumn::make("description"),
+                TextColumn::make('name')->label('course_name')->searchable(),
+                TextColumn::make('teacher.user.name')->label('Teacher_name'),
+                TextColumn::make('payment.student.user.name')->label('Student'),
+                TextColumn::make('start_date'),
+                TextColumn::make('end_date'),
+                TextColumn::make('description')->limit(30),
             ])
             ->filters([
                 //
-                Filter::make("start_date")->schema([
-                    DatePicker::make("start_date"),
-                ]),
+                Filter::make('start_date')->
+                Schema([
+                    DatePicker::make('start_date'),
+                ])
             ])
             ->headerActions([
                 //
-
             ])
             ->recordActions([
                 //
+                 Action::make('delete')->label('Delete')->requiresConfirmation()->action(fn (sinf $record)=>$record->delete($record->id))
+            ])->toolbarActions([
+                BulkActionGroup::make([
+                    //
+                ]),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -59,6 +65,6 @@ class Listsinf extends Component implements HasActions, HasSchemas, HasTable
 
     public function render(): View
     {
-        return view('livewire.sinf.listsinf');
+        return view('livewire.sinf.list-sinfs');
     }
 }
