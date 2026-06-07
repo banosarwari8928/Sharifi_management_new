@@ -2,8 +2,9 @@
 
 use App\Livewire\Admin\ListAdmins;
 use App\Livewire\Payment\ListPayment;
-use App\Livewire\Sinf\Listsinf;
+use App\Livewire\Sinf\ListSinfs;
 use App\Livewire\Student\ListStudents;
+use App\Livewire\Teacher\CreateTeacher;
 use App\Livewire\Teacher\ListTeachers;
 use App\Livewire\User\ListUser;
 use Illuminate\Support\Facades\Route;
@@ -27,10 +28,11 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function (){
     Route::get('/manage-users',ListUser::class)->name('users.index');
     Route::get('/manage-teachers',ListTeachers::class)->name('teachers.index');
+    Route::get('/create-teacher',CreateTeacher::class)->name('teacher.create');
     
     Route::get('/manage-students',ListStudents::class)->name('students.index');
     Route::get('/admin',ListAdmins::class)->name('admin.index');
-    Route::get('/manage-classes',Listsinf::class)->name('classes.index');
+    Route::get('/manage-classes',ListSinfs::class)->name('classes.index');
     Route::get('/finance-payment',ListPayment::class)->name('payment.index');
 });
 

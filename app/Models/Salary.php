@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Salary extends Model
 {
-    protected $fillable = [
+    //
+     protected $fillable = [
         "year",
         "month",
         "day",
         "amount",
         "teacher_id"
     ];
-
     public function teacher(){
-        return $this->belongsTo(Teacher::class);
+        return $this->belongsTo(Teacher::class , 'teacher_id');
     }
 }

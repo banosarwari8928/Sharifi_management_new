@@ -12,12 +12,12 @@ class Student extends Model
         "phone_number"
     ];
     public function user(){
-        return $this->belongsTo(user::class , 'user_id');
+        return $this->belongsTo(User::class , 'user_id');
     }
-     public function sinfs(){
-        return $this->belongsToMany(sinf::class , 'sinf_id');
+    public function sinfs(){
+        return $this->belongsToMany(Sinf::class , 'sinf_id');
     }
     public function payment(){
-        return $this->hasMany(payment::class , 'student_id');
+        return $this->hasMany(Payment::class , 'student_id');
     }
 }

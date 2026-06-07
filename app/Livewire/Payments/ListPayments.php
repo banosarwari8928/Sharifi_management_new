@@ -1,23 +1,26 @@
 <?php
 
-namespace App\Livewire\Student;
+namespace App\Livewire\Payments;
 
-use App\Models\Student;
+use App\Models\Payment;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class ListStudents extends Component implements HasActions, HasSchemas, HasTable
+class ListPayments extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
     use InteractsWithTable;
@@ -26,33 +29,29 @@ class ListStudents extends Component implements HasActions, HasSchemas, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Student::query())
+            ->query(fn (): Builder => Payment::query())
             ->columns([
-                TextColumn::make('user.name')->searchable()->sortable()->label("Name"),
-                TextColumn::make('user.email')->label("Email")->searchable(),
-                TextColumn::make('lastName'),
-                TextColumn::make('payment.sinf.title'),
-                TextColumn::make("phone_number"),
-                TextColumn::make("tazkira_no"),
+                //
+                TextColumn::make('student.user.name')->label("Student_Name")->sortable()->searchable(),
+                TextColumn::make('sinf.title')->label("Course_Name")->sortable()->searchable(),
+                TextColumn::make("amount")->money("Afg"),
+                TextColumn::make("created_at")->date(),
             ])
             ->filters([
                 //
+                // SelectFilter::make('')->options([
+
+                // ]),
             ])
             ->headerActions([
                 //
             ])
             ->recordActions([
                 //
-                            Action::make('delete')
-    ->requiresConfirmation()
-    ->action(fn (Student $record) => $record->delete($record->id))->color('danger')
-    ->failureNotificationTitle(function (int $successCount, int $totalCount): string {
-        if ($successCount) {
-            return "{$successCount} of {$totalCount} student      deleted";
-        }
-
-        return 'Failed to delete any users';
-    })
+                Action::make('edit')
+                ->url(fn (Payment $record): string => route('payments.edit', $record))->openUrlInNewTab(),
+                Action::make('delete')
+                ->requiresConfirmation()->action(fn (Payment $record) => $record->delete($record->id))
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -63,6 +62,6 @@ class ListStudents extends Component implements HasActions, HasSchemas, HasTable
 
     public function render(): View
     {
-        return view('livewire.student.list-students');
+        return view('livewire.payments.list-payments');
     }
 }

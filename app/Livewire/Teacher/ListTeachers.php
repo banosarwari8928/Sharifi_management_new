@@ -7,6 +7,7 @@ use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Support\Icons\Heroicon;
@@ -29,31 +30,35 @@ class ListTeachers extends Component implements HasActions, HasSchemas, HasTable
         return $table
             ->query(fn (): Builder => Teacher::query())
             ->columns([
-                TextColumn::make('user.name')->label('name')->searchable()->sortable(),
+                TextColumn::make('user.name')->label('Name')->searchable()->sortable(),
                 TextColumn::make('user.email')->label('Email')->icon(Heroicon::Envelope)->iconColor('primary'),
-                TextColumn::make('last_name'),
-                TextColumn::make('sinf.title')->limitList(3)->badge()->separator(","),
-                TextColumn::make('degree_of_education')->color('primary'),
-                TextColumn::make('phone_number'),
-                TextColumn::make('bio')->limit(20),
+                TextColumn::make('lastName')->sortable()->searchable(),
+                TextColumn::make('degree_of_education')->label('Degree Of Education')->badge(),
+                TextColumn::make('sinf.title')->limitList(3)->badge()->separator(','),
+                // TextColumn::make('sinf.title')->limitList(3)->badge(),
+                TextColumn::make('phone_number')->label('Phone Number')->toggleable(isToggledHiddenByDefault:true) ,
+                TextColumn::make('bio')->label('Biography')->toggleable(isToggledHiddenByDefault: true)->limit(10),
                 // ->isToggledHiddenByDefault()
+                //  FileUpload::make('image_url'),
+                
             ])
             ->filters([
                 //
             ])
             ->headerActions([
                 //
+
             ])
             ->recordActions([
                   Action::make('delete')
     ->requiresConfirmation()
-    ->action(fn (Teacher $record) => $record->delete($record->id))
+    ->action(fn (Teacher $record) => $record->delete($record->id))->color('danger')
     ->failureNotificationTitle(function (int $successCount, int $totalCount): string {
         if ($successCount) {
-            return "{$successCount} of {$totalCount} users deleted";
+            return "{$successCount} of {$totalCount} teacher  deleted";
         }
 
-        return 'Failed to delete teacher';
+        return 'Failed to delete any users';
     })
             ])
             ->toolbarActions([

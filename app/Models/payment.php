@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class payment extends Model
+class Payment extends Model
 {
     protected $fillable = [
         "amount",
@@ -15,6 +15,6 @@ class payment extends Model
         return $this->belongsTo(Student::class , 'student_id');
     }
     public function sinf(){
-        return $this->belongsTo(sinf::class , 'sinf_id');
+        return $this->belongsTo(Sinf::class , 'sinf_id');
     }
 }

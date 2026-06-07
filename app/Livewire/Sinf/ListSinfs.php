@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Livewire\Grades;
+namespace App\Livewire\Sinf;
+
+
 use App\Models\sinf;
+use App\Models\User;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
@@ -9,7 +12,6 @@ use Filament\Actions\Contracts\HasActions;
 use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
-use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -19,7 +21,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class ListGrades extends Component implements HasActions, HasSchemas, HasTable
+class ListSinfs extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
     use InteractsWithTable;
@@ -31,30 +33,29 @@ class ListGrades extends Component implements HasActions, HasSchemas, HasTable
             ->query(fn (): Builder => sinf::query())
             ->columns([
                 //
-                TextColumn::make('name')->label('course_name')->searchable(),
-                TextColumn::make('teacher.user.name')->label('Teacher_name'),
-                TextColumn::make('payment.student.user.name')->label('Student'),
+                TextColumn::make('title')->label('Course Name')->searchable(),
+                TextColumn::make('teacher.user.name')->label('Teacher'),
                 TextColumn::make('start_date'),
                 TextColumn::make('end_date'),
-                TextColumn::make('description')->limit(30),
+                TextColumn::make('payment.student.user.name')->label('Student'),
+                TextColumn::make('description')->limit(10),
             ])
             ->filters([
                 //
-                Filter::make('start_date')->
-                Schema([
+                 Filter::make('start_date')->form([
                     DatePicker::make('start_date'),
-                ])
+                ]),
             ])
             ->headerActions([
                 //
             ])
             ->recordActions([
                 //
-                 Action::make('delete')->label('Delete')->requiresConfirmation()->action(fn (sinf $record)=>$record->delete($record->id))
-            ])->toolbarActions([
-                BulkActionGroup::make([
-                    //
-                ]),
+                Action::make('edit')
+                ->url(fn (Sinf $record): string => route('sinf.edit', $record))->openUrlInNewTab(),
+                Action::make('delete')
+    ->requiresConfirmation()
+    ->action(fn (Sinf $record) => $record->delete($record->id))
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
