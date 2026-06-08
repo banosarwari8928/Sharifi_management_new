@@ -28,7 +28,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth'])->group(function (){
     Route::get('/manage-users',ListUser::class)->name('users.index');
     Route::get('/manage-teachers',ListTeachers::class)->name('teachers.index');
-    Route::get('/create-teacher',CreateTeacher::class)->name('teacher.create');
+    Route::get('/create-teacher',CreateTeacher::class)->name('teachers.create');
     
     Route::get('/manage-students',ListStudents::class)->name('students.index');
     Route::get('/admin',ListAdmins::class)->name('admin.index');

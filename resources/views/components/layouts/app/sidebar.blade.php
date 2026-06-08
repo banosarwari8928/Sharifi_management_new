@@ -19,7 +19,7 @@
                     <flux:navlist.item icon="user" :href="route('admin.index')" :current="request()->routeIs('admin.index')" wire:navigate>Admin</flux:navlist.item>
                     <flux:navlist.item icon="user-group" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>Manage Users</flux:navlist.item>
                     <flux:navlist.item icon="user-circle" :href="route('teachers.index')" :current="request()->routeIs('teachers.index')" wire:navigate>Manage Teachers</flux:navlist.item>
-                    <flux:navlist.item icon="user-circle" :href="route('teacher.create')" :current="request()->routeIs('teacher.create')" wire:navigate>Create Teachers</flux:navlist.item>
+                    <flux:navlist.item icon="user-plus" :href="route('teachers.create')" :current="request()->routeIs('teachers.create')" wire:navigate>Create Teachers</flux:navlist.item>
                     <flux:navlist.item icon="academic-cap" :href="route('students.index')" :current="request()->routeIs('students.index')" wire:navigate>Manage Students</flux:navlist.item>
                     <flux:navlist.item icon="building-library" :href="route('classes.index')" :current="request()->routeIs('classes.index')" wire:navigate>Manage Classes</flux:navlist.item>
                 </flux:navlist.group>

@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Teacher extends Model
 {
     protected $fillable = [
-        "lastName",
+        "last_name",
         "degree_of_education",
+         "image_url",
         "phone_number",
-        "image_url",
         "bio",
         "user_id"
     ];

@@ -11,6 +11,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -32,14 +33,13 @@ class ListTeachers extends Component implements HasActions, HasSchemas, HasTable
             ->columns([
                 TextColumn::make('user.name')->label('Name')->searchable()->sortable(),
                 TextColumn::make('user.email')->label('Email')->icon(Heroicon::Envelope)->iconColor('primary'),
-                TextColumn::make('lastName')->sortable()->searchable(),
+                TextColumn::make('last_name')->sortable()->searchable(),
                 TextColumn::make('degree_of_education')->label('Degree Of Education')->badge(),
                 TextColumn::make('sinf.title')->limitList(3)->badge()->separator(','),
+                ImageColumn::make('image_url')->disk('public'),
                 // TextColumn::make('sinf.title')->limitList(3)->badge(),
                 TextColumn::make('phone_number')->label('Phone Number')->toggleable(isToggledHiddenByDefault:true) ,
                 TextColumn::make('bio')->label('Biography')->toggleable(isToggledHiddenByDefault: true)->limit(10),
-                // ->isToggledHiddenByDefault()
-                //  FileUpload::make('image_url'),
                 
             ])
             ->filters([
