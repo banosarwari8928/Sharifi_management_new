@@ -43,6 +43,9 @@ class ListTeachers extends Component implements HasActions, HasSchemas, HasTable
             ])
             ->headerActions([
                 //
+                Action::make("CreateTeacher")->label("Add new Teacher")->url(
+                    route('teachers.create')
+                )
             ])
             ->recordActions([
                 Action::make('edit')->url(fn (Teacher $record):string => route('teacher.edit',$record->id))->openUrlInNewTab(),

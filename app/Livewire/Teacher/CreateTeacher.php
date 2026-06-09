@@ -14,6 +14,8 @@ use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use App\Models\Teacher;
+use App\Models\User;
+use Filament\Forms\Components\Select;
 
 class CreateTeacher extends Component implements HasActions, HasSchemas
 {
@@ -32,7 +34,8 @@ class CreateTeacher extends Component implements HasActions, HasSchemas
         return $schema
             ->components([
                 Section::make('Create new Teacher')->description('Add new Teacher')
-                ->schema([
+                ->schema([   
+                    Select::make('user_id')->label('User ID')->options(User::query()->pluck('name', 'id')),
                     TextInput::make('last_name'),
                     TextInput::make('degree_of_education'),
                     TextInput::make('phone_number'),

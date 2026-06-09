@@ -13,6 +13,8 @@ use Filament\Schemas\Schema;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use App\Models\Student;
+use App\Models\User;
+use Filament\Forms\Components\Select;
 
 class CreateStudent extends Component implements HasActions, HasSchemas
 {
@@ -31,6 +33,7 @@ class CreateStudent extends Component implements HasActions, HasSchemas
         return $schema
             ->components([
                 Section::make('Create new Student')->description('Add new Student')->schema([
+                    Select::make('user_id')->label('User ID')->options(User::query()->pluck('name', ' id')),
                     TextInput::make('last_name'),
                     TextInput::make('phone_number'),
                     TextInput::make('tazkira_number'),
