@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\Payment;
 
-use App\Models\Admin;
+use App\Models\Payment;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -16,7 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class ListAdmins extends Component implements HasActions, HasSchemas, HasTable
+class ListPayments extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
     use InteractsWithTable;
@@ -25,11 +25,11 @@ class ListAdmins extends Component implements HasActions, HasSchemas, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Admin::query())
+            ->query(fn (): Builder => Payment::query())
             ->columns([
-                TextColumn::make('user.name'),
-                TextColumn::make('last_name'),
-                TextColumn::make('bio')
+                TextColumn::make('Student.user.name')->label('Student Name'),
+                TextColumn::make('sinf.title'),
+                TextColumn::make('amount')
             ])
             ->filters([
                 //
@@ -38,7 +38,7 @@ class ListAdmins extends Component implements HasActions, HasSchemas, HasTable
                 //
             ])
             ->recordActions([
-                //
+                // 
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -49,6 +49,6 @@ class ListAdmins extends Component implements HasActions, HasSchemas, HasTable
 
     public function render(): View
     {
-        return view('livewire.admin.list-admins');
+        return view('livewire.payment.list-payments');
     }
 }

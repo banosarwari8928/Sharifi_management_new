@@ -9,6 +9,7 @@ use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
@@ -28,12 +29,13 @@ class ListStudents extends Component implements HasActions, HasSchemas, HasTable
         return $table
             ->query(fn (): Builder => Student::query())
             ->columns([
-                TextColumn::make('user.name')->searchable()->sortable()->label("Name"),
-                TextColumn::make('user.email')->label("Email")->searchable(),
-                TextColumn::make('lastName'),
-                TextColumn::make('payment.sinf.title'),
-                TextColumn::make("phone_number"),
-                TextColumn::make("tazkira_no"),
+                TextColumn::make('user.name')->searchable()->label('Name'),
+                TextColumn::make('user.email')->label('email'),
+                TextColumn::make('last_name'),
+                TextColumn::make('payments.sinf.title')->badge()->listWithLineBreaks(),
+                ImageColumn::make('image_url'),
+                TextColumn::make('phone_number')->toggleable(isToggledHiddenByDefault:false),
+                TextColumn::make('tazkira_no')->toggleable(isToggledHiddenByDefault:true),
             ])
             ->filters([
                 //
@@ -42,17 +44,8 @@ class ListStudents extends Component implements HasActions, HasSchemas, HasTable
                 //
             ])
             ->recordActions([
-                //
-                            Action::make('delete')
-    ->requiresConfirmation()
-    ->action(fn (Student $record) => $record->delete($record->id))->color('danger')
-    ->failureNotificationTitle(function (int $successCount, int $totalCount): string {
-        if ($successCount) {
-            return "{$successCount} of {$totalCount} student      deleted";
-        }
-
-        return 'Failed to delete any users';
-    })
+                Action::make('edit')->url(fn (Student $record):string => route('student.edit',$record->id))->openUrlInNewTab(),
+                Action::make('delete')->action(fn (Student $record) => $record->delete($record->id))->color('danger')->badge()
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

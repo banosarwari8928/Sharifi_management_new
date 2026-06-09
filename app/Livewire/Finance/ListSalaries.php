@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\Admin;
+namespace App\Livewire\Salary;
 
-use App\Models\Admin;
+use App\Models\Salary;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
@@ -16,7 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class ListAdmins extends Component implements HasActions, HasSchemas, HasTable
+class ListSalaries extends Component implements HasActions, HasSchemas, HasTable
 {
     use InteractsWithActions;
     use InteractsWithTable;
@@ -25,11 +25,13 @@ class ListAdmins extends Component implements HasActions, HasSchemas, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => Admin::query())
+            ->query(fn (): Builder => Salary::query())
             ->columns([
-                TextColumn::make('user.name'),
-                TextColumn::make('last_name'),
-                TextColumn::make('bio')
+                TextColumn::make('teacher.user.name')->label("Teacher Name"),
+                TextColumn::make('year'),
+                TextColumn::make('month'),
+                TextColumn::make('day'),
+                TextColumn::make('amount')->badge(),
             ])
             ->filters([
                 //
@@ -49,6 +51,6 @@ class ListAdmins extends Component implements HasActions, HasSchemas, HasTable
 
     public function render(): View
     {
-        return view('livewire.admin.list-admins');
+        return view('livewire.salary.list-salaries');
     }
 }

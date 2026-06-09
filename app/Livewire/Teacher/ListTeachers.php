@@ -7,10 +7,9 @@ use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
-use Filament\Forms\Components\FileUpload;
+use Filament\Notifications\Notification;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -31,37 +30,25 @@ class ListTeachers extends Component implements HasActions, HasSchemas, HasTable
         return $table
             ->query(fn (): Builder => Teacher::query())
             ->columns([
-                TextColumn::make('user.name')->label('Name')->searchable()->sortable(),
-                TextColumn::make('user.email')->label('Email')->icon(Heroicon::Envelope)->iconColor('primary'),
-                TextColumn::make('last_name')->sortable()->searchable(),
-                TextColumn::make('degree_of_education')->label('Degree Of Education')->badge(),
-                TextColumn::make('sinf.title')->limitList(3)->badge()->separator(','),
-                ImageColumn::make('image_url')->disk('public'),
-                // TextColumn::make('sinf.title')->limitList(3)->badge(),
-                TextColumn::make('phone_number')->label('Phone Number')->toggleable(isToggledHiddenByDefault:true) ,
-                TextColumn::make('bio')->label('Biography')->toggleable(isToggledHiddenByDefault: true)->limit(10),
-                
+                TextColumn::make('user.name')->sortable()->searchable()->label('Teacher Name'),
+                TextColumn::make('last_name'),
+                TextColumn::make('degree_of_education')->badge(),
+                TextColumn::make('sinfs.title')->limitList(3)->badge()->separator(','),
+                ImageColumn::make('image_url'),
+                TextColumn::make('phone_number')->toggleable(isToggledHiddenByDefault:true),
+                TextColumn::make('bio')->limit(20)->toggleable(isToggledHiddenByDefault:true),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
                 //
-                Action::make("createTeacher")->label("Add New Teacher")->url(
-                    route('teachers.create')
-                )
             ])
             ->recordActions([
-                  Action::make('delete')
-    ->requiresConfirmation()
-    ->action(fn (Teacher $record) => $record->delete($record->id))->color('danger')
-    ->failureNotificationTitle(function (int $successCount, int $totalCount): string {
-        if ($successCount) {
-            return "{$successCount} of {$totalCount} teacher  deleted";
-        }
-
-        return 'Failed to delete any users';
-    })
+                Action::make('edit')->url(fn (Teacher $record):string => route('teacher.edit',$record->id))->openUrlInNewTab(),
+                Action::make('delete')->requiresConfirmation()->action(fn (Teacher $record) => $record->delete($record->id))->color('danger')->successNotification(
+                    Notification::make()->title('Teacher deleted successfully')->success()
+                )
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

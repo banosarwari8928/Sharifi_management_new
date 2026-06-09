@@ -47,6 +47,16 @@ class User extends Authenticatable // implements MustVerifyEmail
         ];
     }
 
+    public function student(){
+        return $this->hasOne(Student::class);
+    }
+    public function Teacher(){
+        return $this->hasOne(Teacher::class);
+    }
+    public function admin(){
+        return $this->hasOne(Admin::class);
+    }
+
     /**
      * Get the user's initials
      */
@@ -56,14 +66,5 @@ class User extends Authenticatable // implements MustVerifyEmail
             ->explode(' ')
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
-    }
-    public function Admin(){
-        return $this->hasOne(Admin::class , 'user_id');
-    }
-    public function student(){
-        return $this->hasOne(Student::class , 'user_id');
-    }
-    public function teacher(){
-        return $this->hasOne(teacher::class , 'user_id');
     }
 }

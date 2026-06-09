@@ -4,23 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class sinf extends Model
+class Sinf extends Model
 {
-    protected $fillable = [
+    protected $fillable= [
         "title",
-        "start_date ",
-        "end_date ",
+        "start_date",
+        "end_date",
         "description",
         "banner_url",
         "teacher_id"
     ];
+
+    public function payments(){
+        return $this->hasMany(Payment::class);
+    }
+
     public function teacher(){
-        return $this->belongsTo(Teacher::class , 'teacher_id');
-    }
-    public function payment(){
-        return $this->hasMany(Payment::class , 'sinf_id');
-    }
-    public function students(){
-        return $this->belongsToMany(Student::class , 'sinf_id');
+        return $this->belongsTo(Teacher::class);
     }
 }

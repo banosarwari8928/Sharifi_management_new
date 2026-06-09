@@ -28,7 +28,7 @@ class ListUsers extends Component implements HasActions, HasSchemas, HasTable
         return $table
             ->query(fn (): Builder => User::query())
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('email'),
                 TextColumn::make('role')->badge(),
             ])
@@ -39,12 +39,7 @@ class ListUsers extends Component implements HasActions, HasSchemas, HasTable
                 //
             ])
             ->recordActions([
-                //
-                                Action::make('edit')
-                ->url(fn (User $record): string => route('user.edit', $record))->openUrlInNewTab(),
-                Action::make('delete')
-    ->requiresConfirmation()
-    ->action(fn (User $record) => $record->delete($record->id))
+                Action::make('delete')->requiresConfirmation()->action(fn (User $record) => $record->delete($record->id))->color('danger')
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

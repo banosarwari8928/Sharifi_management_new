@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
+        {{-- @vite(['resources/css/app.css','resources/js/app.js'])  --}}
         @include('partials.head')
+        @filamentStyles
+        @vite(['./resources/css/app.css','./resources/js/app.js'])
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
         <flux:sidebar sticky stashable class="border-r border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
@@ -10,25 +18,30 @@
             <a href="{{ route('dashboard') }}" class="mr-5 flex items-center space-x-2" wire:navigate>
                 <x-app-logo class="size-8" href="#"></x-app-logo>
             </a>
-            <flux:navlist variant="outline" class="justify-center flex flex-col">
-                  <flux:navlist variant="outline">
+
+            <flux:navlist variant="outline">
                 <flux:navlist.group heading="Platform" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>Dashboard</flux:navlist.item>
                 </flux:navlist.group>
                 <flux:navlist.group heading="Management" class="grid">
-                    <flux:navlist.item icon="user" :href="route('admin.index')" :current="request()->routeIs('admin.index')" wire:navigate>Admin</flux:navlist.item>
+                    {{-- <flux:navlist.item icon="user" :href="route('admin.index')" :current="request()->routeIs('admin.index')" wire:navigate>Admin</flux:navlist.item> --}}
                     <flux:navlist.item icon="user-group" :href="route('users.index')" :current="request()->routeIs('users.index')" wire:navigate>Manage Users</flux:navlist.item>
                     <flux:navlist.item icon="user-circle" :href="route('teachers.index')" :current="request()->routeIs('teachers.index')" wire:navigate>Manage Teachers</flux:navlist.item>
-                    <!-- <flux:navlist.item icon="user-plus" :href="route('teachers.create')" :current="request()->routeIs('teachers.create')" wire:navigate>Create Teachers</flux:navlist.item> -->
+                    <flux:navlist.item icon="user-plus" :href="route('teachers.create')" :current="request()->routeIs('teachers.create')" wire:navigate>Create Teacher</flux:navlist.item>
                     <flux:navlist.item icon="academic-cap" :href="route('students.index')" :current="request()->routeIs('students.index')" wire:navigate>Manage Students</flux:navlist.item>
+                    <flux:navlist.item icon="academic-cap" :href="route('students.create')" :current="request()->routeIs('students.create')" wire:navigate>Add Student</flux:navlist.item>
                     <flux:navlist.item icon="building-library" :href="route('classes.index')" :current="request()->routeIs('classes.index')" wire:navigate>Manage Classes</flux:navlist.item>
+                    <flux:navlist.item icon="building-library" :href="route('sinfs.create')" :current="request()->routeIs('sinfs.create')" wire:navigate>Create Class</flux:navlist.item>
                 </flux:navlist.group>
                 <flux:navlist.group heading="Finance" class="grid">
-                    <flux:navlist.item icon="banknotes" :href="route('payment.index')" :current="request()->routeIs('payment.index')" wire:navigate>Student payments</flux:navlist.item>
-                    <flux:navlist.item icon="scale  " :href="route('teachers.index')" :current="request()->routeIs('teachers.index')" wire:navigate>Teacher Salary</flux:navlist.item>
+                    {{-- <flux:navlist.item icon="banknotes" :href="route('payment.index')" :current="request()->routeIs('payment.index')" wire:navigate>Student Payment</flux:navlist.item> --}}
+                    {{-- <flux:navlist.item icon="scale" :href="route('salaries.index')" :current="request()->routeIs('salaries.index')" wire:navigate>Teachers Salaries </flux:navlist.item> --}}
                 </flux:navlist.group>
             </flux:navlist>
+
             <flux:spacer />
+
+            <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                     Repository
                 </flux:navlist.item>
@@ -37,8 +50,6 @@
                     Documentation
                 </flux:navlist.item>
             </flux:navlist>
-
-            
 
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">
@@ -139,5 +150,7 @@
         {{ $slot }}
 
         @fluxScripts
+        @filamentScripts()
+        @vite('resources/css/app.css')
     </body>
 </html>
