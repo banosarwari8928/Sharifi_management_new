@@ -4,6 +4,12 @@ namespace App\Livewire\Teacher;
 
 use Filament\Actions\Concerns\InteractsWithActions;
 use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Wizard;
+use Filament\Schemas\Components\Wizard\Step;
 use Filament\Schemas\Concerns\InteractsWithSchemas;
 use Filament\Schemas\Contracts\HasSchemas;
 use Filament\Schemas\Schema;
@@ -27,6 +33,33 @@ class CreatTeacher extends Component implements HasActions, HasSchemas
         return $schema
             ->components([
                 //
+                Wizard::make([
+                    Step::make('User')
+                    ->schema([
+                        TextInput::make('name'),
+                        TextInput::make('email')->required(),
+                        TextInput::make('password'),
+                        TextInput::make('user_type')->default('teacher'),
+                    ]),
+                     Step::make('Teacher')
+                    ->schema([
+                        TextInput::make("last_name")->required(),
+                        Select::make('Degree Of Education')->options([
+                            'secondary school'=>'Secondary School Diploma',
+                            'bachelor'=>'Bachelor Degree',
+                            'master'=>'Master Degree',
+                            'PHD'=>'PHD'
+                        ]),
+                        Select::make("field_of_education")->options([
+                            "computer sience"=>"Computer Sience",
+                            "political sience"=>"Political Sience",
+                            "ecommerce sience"=>"Ecommerce Sience",
+                        ]),
+                        TextInput::make("phone_number"),
+                        FileUpload::make("image_url")->directory("teacher_images")->disk('public'),
+                        Textarea::make("bio")->required(),
+                    ])
+                ])
             ])
             ->statePath('data');
     }
